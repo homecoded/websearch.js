@@ -113,7 +113,7 @@
     var webSearchJs = createSearcher('WebSearch');
     var bookSearchJs = createSearcher('BookSearch');
 
-    // make the file module ready
+    // make the file module-compatible
     if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
         module.exports = {
             webSearchJs: webSearchJs,
