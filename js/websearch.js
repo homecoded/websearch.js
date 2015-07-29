@@ -5,7 +5,7 @@
  * The Custom Search API only offers a defined subset of the web to search, not the complete Google index.
  *
  */
-
+/* global google */
 (function () {
     function createSearcher(webSearcherClassName) {
 
@@ -28,7 +28,6 @@
         function search(searchTerm, callback) {
             if (typeof callback !== 'function') {
                 throw new Error(ERRORS.NO_CALLBACK);
-                return;
             }
 
             if (wasSearchRequested()) {
@@ -50,7 +49,7 @@
         function isVendorApiLoaded() {
             return typeof window.google !== 'undefined' &&
                 typeof window.google.load !== 'undefined' &&
-                searchControl !== null
+                searchControl !== null;
         }
 
         function loadVendorScript() {
@@ -67,8 +66,8 @@
                 "1",
                 {
                     callback: function () {
-                        var webSearcherClass = google.search[webSearcherClassName];
-                        searchControl = new webSearcherClass();
+                        var WebSearcherClass = google.search[webSearcherClassName];
+                        searchControl = new WebSearcherClass();
                         searchControl.setNoHtmlGeneration();
                         searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
                         onVendorScriptLoaded();
@@ -92,7 +91,9 @@
                     searchResult.urls = [];
 
                     for (var result in searchControl.results) {
-                        searchResult.urls.push(searchControl.results[result].url);
+                        if (searchControl.results.hasOwnProperty(result)) {
+                            searchResult.urls.push(searchControl.results[result].url);
+                        }
                     }
                     onSearchDone(null, searchResult);
                 },
@@ -106,7 +107,7 @@
 
         return {
             search: search
-        }
+        };
     }
 
     var webSearchJs = createSearcher('WebSearch');
