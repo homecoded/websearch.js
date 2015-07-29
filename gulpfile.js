@@ -1,5 +1,7 @@
-var gulp = require('gulp');
-var Server = require('karma').Server;
+var gulp = require('gulp'),
+    Server = require('karma').Server,
+    jshint = require('gulp-jshint')
+;
 
 /**
  * Run test once and exit
@@ -20,4 +22,13 @@ gulp.task('test', function (done) {
     }, done).start();
 });
 
-gulp.task('default', ['test']);
+/**
+ * JSLint task
+ */
+gulp.task('lint', function(done) {
+    return gulp.src('./js/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
+
+gulp.task('default', ['lint', 'test']);
