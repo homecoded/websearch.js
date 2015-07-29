@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/homecoded/websearch.js/badges/gpa.svg)](https://codeclimate.com/github/homecoded/websearch.js)
+
 # websearch.js
 
 A simple interface to websearch. It uses a deprecated but still functioning Google API. 
