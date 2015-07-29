@@ -25,8 +25,8 @@ gulp.task('test', function (done) {
 /**
  * JSLint task
  */
-gulp.task('lint', function(done) {
-    return gulp.src('./js/*.js')
+gulp.task('lint', function() {
+    return gulp.src(['./js/*.js', './tests/suites/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });

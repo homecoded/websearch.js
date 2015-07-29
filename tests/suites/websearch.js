@@ -1,3 +1,5 @@
+/* global describe, expect, it, webSearchJs, bookSearchJs */
+
 window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
 describe('Websearcher test suite', function () {
