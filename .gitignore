@@ -12,5 +12,6 @@ $RECYCLE.BIN/
 .idea_modules/
 atlassian-ide-plugin.xml
 node_modules
+coverage
 
 

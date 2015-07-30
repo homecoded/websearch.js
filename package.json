@@ -8,6 +8,8 @@
   },
   "devDependencies": {
     "gulp": "~3",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat-util": "^0.5.2",
     "gulp-jshint": "~1.6",
     "gulp-uglify": "~0.3",
     "jasmine-core": "^2.3.4",
