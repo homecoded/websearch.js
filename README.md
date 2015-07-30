@@ -5,12 +5,16 @@
 A simple interface to websearch. 
 
 It uses a deprecated but still functioning Google API. 
-The reason, why we use this deprecated API is that there is no proper alternative for this API (for complete websearch). 
-The Custom Search API only offers a defined subset of the web to search, not the complete Google index.
+The reason for using this deprecated API is the lack of proper alternatives. 
+Google's replacement, the "Custom Search API", only offers a defined subset of the web to search, 
+not the complete Google index.
 
-The web-searcher can only run one search simultaneously. This is by design! If you run a number of multiple concurrent 
+The web-searcher can only run one search at a time. This is by design! If you run a number of multiple concurrent 
 queries you may trigger Google's abuse detection. If you are using their search, you should make sure you are not
 putting unnecessary stress on their servers. 
+
+Make sure that your webservice, if not used privately, shows the Google branding (see https://developers.google.com/web-search/docs/#advanced-branding)
+as this is required by their terms of service.
 
 # Usage
 
