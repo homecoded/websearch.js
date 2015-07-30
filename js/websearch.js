@@ -61,19 +61,15 @@
         }
 
         function onGoogleApiLoaded() {
-            google.load(
-                "search",
-                "1",
-                {
-                    callback: function () {
-                        var WebSearcherClass = google.search[webSearcherClassName];
-                        searchControl = new WebSearcherClass();
-                        searchControl.setNoHtmlGeneration();
-                        searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
-                        onVendorScriptLoaded();
-                    }
-                }
-            );
+            google.load('search', '1', {callback: onGoogleSearchLoaded });
+        }
+
+        function onGoogleSearchLoaded() {
+            var WebSearcherClass = google.search[webSearcherClassName];
+            searchControl = new WebSearcherClass();
+            searchControl.setNoHtmlGeneration();
+            searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
+            onVendorScriptLoaded();
         }
 
         function onVendorScriptLoaded() {
