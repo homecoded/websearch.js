@@ -1,0 +1,30 @@
+{
+  "name": "websearch.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/homecoded/websearch.js",
+  "authors": [
+    "Manuel Ruelke",
+    "@homecoded <contact@homecoded.com>"
+  ],
+  "description": "A simple interface to search the web and books with Google",
+  "main": "dist/websearch.min.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "web",
+    "search",
+    "Google",
+    "book",
+    "search"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "js"
+  ]
+}
