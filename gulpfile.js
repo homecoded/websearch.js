@@ -68,4 +68,6 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
-gulp.task('default', ['lint', 'test', 'clean', 'compress', 'license']);
+gulp.task('build', ['compress', 'license']);
+
+gulp.task('default', ['test', 'build']);
