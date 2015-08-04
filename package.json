@@ -12,6 +12,7 @@
     "gulp-concat-util": "^0.5.2",
     "gulp-jshint": "~1.6",
     "gulp-uglify": "~0.3",
+    "gulp-rename": "^1.2",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.3",
     "karma-chrome-launcher": "^0.2.0",
