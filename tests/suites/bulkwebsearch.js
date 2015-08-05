@@ -105,12 +105,20 @@ describe('Bulk-Websearcher test suite', function () {
 
         function onBulkSearchCompleted(error, result) {
             expect(mockSearcher.getSearchCount()).toBe(terms.length * 2);
-            var searchTermsInOrderOfCall = mockSearcher.getSearchTermOrdered();
-            for (var i = 0; i < searchTermsInOrderOfCall.length; i++) {
+            var searchTermsInOrderOfCall = mockSearcher.getSearchTermOrdered(),
+                i
+                ;
+
+            for (i = 0; i < searchTermsInOrderOfCall.length; i++) {
                 var index = Math.floor(i / 2);
                 var expectedTerm = terms[index];
                 var actualTerm = searchTermsInOrderOfCall[i];
                 expect(expectedTerm).toBe(actualTerm);
+            }
+            // with 2 searchers we get twice as many results
+            expect(result.length).toBe(terms.length * 2);
+            for (i = 0; i < result.length; i++) {
+                expect(result[i].term).toBe(terms[Math.floor(i/2)]);
             }
             expect(error).toBeFalsy();
             done();
@@ -156,6 +164,8 @@ describe('Bulk-Websearcher test suite', function () {
             // it's enough when max delay is correct most of the times
             expect(maxDelayCorrectRelation >= 0.5).toBeTruthy();
             expect(error).toBeFalsy();
+
+            expect(result.length).toBe(terms.length);
 
             done();
         }
