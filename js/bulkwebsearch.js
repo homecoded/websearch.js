@@ -89,11 +89,11 @@
             if (searchTaskBuckets.length > 0 && !isSearchInProgress()) {
                 currentSearchTask = getCurrentTaskBucket().tasks.pop();
                 var delayInMilliseconds = minDelayInMilliseconds +
-                    Math.random() * (maxDelayInMilliseconds - minDelayInMilliseconds);
-
-                var startNextSearch = function startNextSearch() {
-                    currentSearchTask.searcher.search(currentSearchTask.term, onTaskDone);
-                }
+                    Math.random() * (maxDelayInMilliseconds - minDelayInMilliseconds),
+                    startNextSearch = function startNextSearch() {
+                        currentSearchTask.searcher.search(currentSearchTask.term, onTaskDone);
+                    }
+                ;
 
                 setTimeout(startNextSearch, delayInMilliseconds);
             }
@@ -128,7 +128,7 @@
             addSearcher: addSearcher,
             reset: reset,
             setDelayRange: setDelayRange
-        }
+        };
 
     })();
 
