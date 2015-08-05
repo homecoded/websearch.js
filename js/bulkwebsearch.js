@@ -3,7 +3,6 @@
  * The websearch.js components will only let you search one term at the time. If you want to search for a large
  * number of terms, you need a scheduler. This is it.
  */
-/* global webSearchJs, bookSearchJs */
 (function () {
 
     var bulkWebSearchJs = (function createBulkWebSearchJS() {
@@ -92,7 +91,7 @@
                 var delayInMilliseconds = minDelayInMilliseconds +
                     Math.random() * (maxDelayInMilliseconds - minDelayInMilliseconds);
 
-                function startNextSearch() {
+                var startNextSearch = function startNextSearch() {
                     currentSearchTask.searcher.search(currentSearchTask.term, onTaskDone);
                 }
 
@@ -116,7 +115,7 @@
         }
 
         function isSearchInProgress() {
-            return currentSearchTask !== null
+            return currentSearchTask !== null;
         }
 
         function setDelayRange(newMinDelayInMilliseconds, newMaxDelayInMilliseconds) {

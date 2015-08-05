@@ -1,3 +1,4 @@
+/* global describe, it, expect, afterEach, bulkWebSearchJs */
 describe('Bulk-Websearcher test suite', function () {
 
     var mockSearcherIntervalIds = [];
@@ -61,7 +62,7 @@ describe('Bulk-Websearcher test suite', function () {
             setDelay: setDelay,
             getCallTimes: getCallTimes,
             getResultLength: getResultLength
-        }
+        };
     }
 
     it('bulkwebsearcher should be defined', function (done) {
@@ -89,6 +90,7 @@ describe('Bulk-Websearcher test suite', function () {
         function onSearchResultsReceived(error, result) {
             var arrayType = Object.prototype.toString.call([]);
             expect(Object.prototype.toString.call(result)).toBe(arrayType);
+            expect(error).toBeFalsy();
             done();
         }
     });
@@ -110,6 +112,7 @@ describe('Bulk-Websearcher test suite', function () {
                 var actualTerm = searchTermsInOrderOfCall[i];
                 expect(expectedTerm).toBe(actualTerm);
             }
+            expect(error).toBeFalsy();
             done();
         }
     });
@@ -152,6 +155,7 @@ describe('Bulk-Websearcher test suite', function () {
             var maxDelayCorrectRelation = correctMaxTimes / testGroupLength;
             // it's enough when max delay is correct most of the times
             expect(maxDelayCorrectRelation >= 0.5).toBeTruthy();
+            expect(error).toBeFalsy();
 
             done();
         }
@@ -172,6 +176,7 @@ describe('Bulk-Websearcher test suite', function () {
                 expect(results[i].term).toBe(terms[i]);
             }
             expect(resultCount).toBe(mockSearcher.getSearchCount());
+            expect(error).toBeFalsy();
         }
 
         function onSecondSearchDone(error, results) {
@@ -181,6 +186,7 @@ describe('Bulk-Websearcher test suite', function () {
             }
             resultCount += results.length;
             expect(resultCount).toBe(mockSearcher.getSearchCount());
+            expect(error).toBeFalsy();
             done();
         }
 
@@ -201,7 +207,7 @@ describe('Bulk-Websearcher test suite', function () {
             expect(result.length).toBe(0);
             expect(error).toBeTruthy();
             callCount++;
-            if (callCount == 2) {
+            if (callCount === 2) {
                 done();
             }
         }
