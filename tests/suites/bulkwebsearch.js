@@ -1,5 +1,5 @@
 /* global describe, it, expect, afterEach, bulkWebSearchJs */
-describe('Bulk-Websearcher test suite', function () {
+describe('Bulk-Websearcher', function () {
 
     var mockSearcherIntervalIds = [];
 
@@ -72,12 +72,12 @@ describe('Bulk-Websearcher test suite', function () {
         };
     }
 
-    it('bulkwebsearcher should be defined', function (done) {
+    it('should be defined', function (done) {
         expect(bulkWebSearchJs).toBeDefined();
         done();
     });
 
-    it('bulkwebsearcher should throw an error if no searcher is added', function (done) {
+    it('should throw an error if no searcher is added', function (done) {
         var isError = false;
         try {
             bulkWebSearchJs.search(['none'], function () {
@@ -89,7 +89,7 @@ describe('Bulk-Websearcher test suite', function () {
         done();
     });
 
-    it('bulkwebsearcher should return one result in an array', function (done) {
+    it('should return one result in an array', function (done) {
         var term = 'father';
         var mockSearcher = createMockSearcher();
         bulkWebSearchJs.addSearcher(mockSearcher);
@@ -102,7 +102,7 @@ describe('Bulk-Websearcher test suite', function () {
         }
     });
 
-    it('bulkwebsearcher should run several searchers one after another', function (done) {
+    it('should run several searchers one after another', function (done) {
         var mockSearcher = createMockSearcher(),
             terms = ['differentSearcherTerm1', 'differentSearcherTerm2', 'differentSearcherTerm3']
             ;
@@ -132,7 +132,7 @@ describe('Bulk-Websearcher test suite', function () {
         }
     });
 
-    it('bulkwebsearcher should add some random time offset', function (done) {
+    it('should add some random time offset', function (done) {
         var mockSearcher = createMockSearcher(),
             terms = [],
             delayInMilliseconds = 5,
@@ -178,7 +178,7 @@ describe('Bulk-Websearcher test suite', function () {
         }
     });
 
-    it('bulksearcher should be able to process different sets of terms with different callbacks', function (done) {
+    it('should be able to process different sets of terms with different callbacks', function (done) {
         var mockSearcher = createMockSearcher(),
             terms = ['termA', 'termB', 'termC'],
             terms2 = ['termA1', 'termB2', 'termC3'],
@@ -212,7 +212,7 @@ describe('Bulk-Websearcher test suite', function () {
         bulkWebSearchJs.search(terms2, onSecondSearchDone);
     });
 
-    it('bulkwebsearcher exists directly if no terms are supplied', function (done) {
+    it('exists directly if no terms are supplied', function (done) {
         var mockSearcher = createMockSearcher(),
             callCount = 0
             ;
