@@ -17,9 +17,15 @@ describe('Bulk-Websearcher test suite', function () {
         var callTimes = [];
         var delay = 40;
         var resultCount = 3;
+        var isSearchRunning = false;
 
         function search(term, callback) {
+            if (isSearchRunning) {
+                callback('You must not start a search while another search is ongoing', []);
+            }
+
             searchCount++;
+            isSearchRunning = true;
             searchTermsOrdered.push(term);
             callTimes.push(Date.now());
             mockSearcherIntervalIds.push(setTimeout(function () {
@@ -28,6 +34,7 @@ describe('Bulk-Websearcher test suite', function () {
                     urls.push('http://domain' + (urlCount++) + '.de');
                 }
 
+                isSearchRunning = false;
                 callback(null, {
                     term: term,
                     urls: urls

@@ -99,7 +99,12 @@
         }
 
         // init sequence
-        loadVendorScript();
+        var readyStateCheckInterval = setInterval(function() {
+            if (document.readyState === "complete") {
+                clearInterval(readyStateCheckInterval);
+                loadVendorScript();
+            }
+        }, 10);
 
         return {
             search: search
@@ -109,18 +114,8 @@
     var webSearchJs = createSearcher('WebSearch');
     var bookSearchJs = createSearcher('BookSearch');
 
-    // make the file module-compatible
-    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-        module.exports = {
-            webSearchJs: webSearchJs,
-            bookSearchJs: bookSearchJs
-        };
-    }
-
-    // and make it possible to run in the browser, too
     if (typeof window !== 'undefined') {
         window.webSearchJs = webSearchJs;
         window.bookSearchJs = bookSearchJs;
     }
 })();
-
