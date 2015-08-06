@@ -14,9 +14,8 @@
   ],
   "keywords": [
     "web",
-    "search",
-    "Google",
     "book",
+    "Google",
     "search"
   ],
   "license": "MIT",
@@ -25,6 +24,7 @@
     "node_modules",
     "bower_components",
     "tests",
-    "js"
+    "js",
+    "example"
   ]
 }
