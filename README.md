@@ -14,15 +14,36 @@ queries you may trigger Google's abuse detection. If you are using their search,
 putting unnecessary stress on their servers. 
 
 Make sure that your webservice, if not used privately, shows the Google branding (see https://developers.google.com/web-search/docs/#advanced-branding)
-as this is required by their terms of service.
+as this is required by their terms of service. See example/example.html to see how you can do that.
 
 # Usage
 
-    websearch.search('mother', function (error, result) {
+    webSearchJs.search('mother', function (error, result) {
         console.log('search term', result.term);
         console.log('urls', result.urls);
     });
 
-# TODO
+# Bulk Searching the web
 
-- bulk searcher, that step by step goes through a list of terms and returns the results in one callback, should support web and book search
+The bulk web searcher strives to solve the the constraints of using Google web search regarding parallel execution.
+You can give the bulk searcher a number of searchers to use and a list of terms. As soon as it's done, a callback
+will be invoked.
+
+        bulkWebSearchJs.addSearcher(webSearchJs);
+        bulkWebSearchJs.addSearcher(bookSearchJs);
+        var minDelayInMilliseconds = 100,
+            maxDelayInMilliseconds = 400,
+            terms = ['Javascript', 'Clean Code', 'Test-Driven Development']
+            ;
+        bulkWebSearchJs.setDelayRange(minDelayInMilliseconds, maxDelayInMilliseconds);
+        bulkWebSearchJs.search(terms, function (error, results) {
+            if (error) {
+                console.log(error);
+                return;
+            }
+            for (var i = 0; i < results.length; i++) {
+                console.log(i, 'search term', result[i].term);
+                console.log(i, 'urls', result[i].urls);
+            }
+            bulkWebSearchJs.reset();
+        });

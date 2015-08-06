@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websearch.js examples</title>
+    <script type="text/javascript" src="../dist/websearch.min.js"></script>
+    <script type="text/javascript" src="../dist/bulkwebsearch.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.4;
+            padding: 20px;
+        }
+
+        div {
+            margin: 30px;
+        }
+
+        #code {
+            padding: 20px;
+            background-color: #333;
+            color: #01d3da;
+            font-family: "Lucida Console", Monaco, monospace;
+        }
+
+    </style>
+</head>
+<body onload="start()">
+
+<h1>This is how you can use the websearch api:</h1>
+<pre id="code"></pre>
+<div id="webSearchJs">please wait ...</div>
+<div id="bookSearchJs">please wait ...</div>
+<div id="branding"></div>
+
+<script id="testScript" type="text/javascript">
+    function makeLinkListHtml(links) {
+        var html = '';
+        for (var i = 0; i < links.length; i++) {
+            html += '[<a href="' + decodeURIComponent(links[i]) + '">Link' + (i + 1) + '</a>], '
+        }
+        return html;
+    }
+
+    function showBranding() {
+        google.search.Search.getBranding(document.getElementById("branding"));
+    }
+
+    function start() {
+        var webSearchJsResults = document.getElementById('webSearchJs');
+        var bookSearchJsResults = document.getElementById('bookSearchJs');
+
+        webSearchJs.search('mother', function (error, result) {
+            webSearchJsResults.innerHTML = 'search term:' + result.term + '<br/>';
+            webSearchJsResults.innerHTML += makeLinkListHtml(result.urls) + '<br/>';
+
+            showBranding();
+        });
+
+        bulkWebSearchJs.addSearcher(bookSearchJs);
+        bulkWebSearchJs.search(['father', 'sister', 'child', 'Cthulhu'], function (error, results) {
+            for (var i = 0; i < results.length; i++) {
+                bookSearchJsResults.innerHTML += 'book search term ' + (i + 1) + ':' + results[i].term + '<br/>';
+                bookSearchJsResults.innerHTML += makeLinkListHtml(results[i].urls) + '<br/>';
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+    };
+
+    function escapeHtml(string) {
+        return String(string).replace(/[&<>"'\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+
+    document.getElementById('code').innerHTML = escapeHtml(document.getElementById('testScript').innerHTML);
+</script>
+</body>
+</html>
