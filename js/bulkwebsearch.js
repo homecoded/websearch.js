@@ -25,8 +25,8 @@
             results = [];
             currentSearchTask = null;
             searchers = [];
-            minDelayInMilliseconds = 0;
-            maxDelayInMilliseconds = 0;
+            minDelayInMilliseconds = 50;
+            maxDelayInMilliseconds = 400;
         }
 
         /**
