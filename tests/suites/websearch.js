@@ -2,7 +2,7 @@
 
 window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
-describe('Websearcher test suite', function () {
+describe('Searcher', function () {
 
     function runTestsForSearcher(searcherName, searcher) {
 
@@ -43,25 +43,43 @@ describe('Websearcher test suite', function () {
             done();
         });
 
+
         it(searcherName + ' must not be called called simultaneously', function (done) {
-            var testTerm1 = 'test',
-                testTerm2 = 'mother',
+            var testTerm1 = 'tester',
+                testTerm2 = 'motherly',
                 runCount = 0
                 ;
 
             function onSearchResultReceived(error, result) {
-                runCount++;
-                if (runCount > 0) {
-                    expect(error).toBeDefined();
+                if (runCount === 0) {
+                    expect(error !== null).toBeTruthy();
                     expect(result).toBeUndefined();
                     expect(error.length).toBeGreaterThan(0);
+                } else {
                     done();
                 }
+                runCount++;
             }
 
             searcher.search(testTerm1, onSearchResultReceived);
             searcher.search(testTerm2, onSearchResultReceived);
         });
+
+
+        it(searcherName + ' must be callable after one another', function (done) {
+
+            var onSecondRunDone = function(error) {
+                expect(error).toBeFalsy();
+                done();
+            };
+
+            var onFirstRunDone = function onFirstRunDone() {
+                searcher.search('brother', onSecondRunDone);
+            };
+
+            searcher.search('sister', onFirstRunDone);
+        });
+
     }
 
     it('check that webSearchJs and bookSearchJs are different objects', function (done) {

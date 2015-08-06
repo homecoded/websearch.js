@@ -13,6 +13,7 @@
             term = '',
             onSearchDone = null,
             searchControl = null,
+            vendorScript = null,
             ERRORS = {
                 ONGOING_SEARCH_INTERRUPTED: 'You must not start a search while another is still ongoing',
                 NO_CALLBACK: 'No callback specified when calling search'
@@ -52,15 +53,17 @@
                 searchControl !== null;
         }
 
-        function loadVendorScript() {
-            var vendorScript = document.createElement('script');
-            vendorScript.type = 'text/javascript';
-            vendorScript.onload = onGoogleApiLoaded;
-            vendorScript.src = vendorApiScriptUrl;
-            document.body.appendChild(vendorScript);
+        function loadVendorApi() {
+            if (vendorScript === null) {
+                vendorScript = document.createElement('script');
+                vendorScript.type = 'text/javascript';
+                vendorScript.onload = onGoogleSearchApiLoaded;
+                vendorScript.src = vendorApiScriptUrl;
+                document.body.appendChild(vendorScript);
+            }
         }
 
-        function onGoogleApiLoaded() {
+        function onGoogleSearchApiLoaded() {
             google.load('search', '1', {callback: onGoogleSearchLoaded });
         }
 
@@ -91,7 +94,11 @@
                             searchResult.urls.push(searchControl.results[result].url);
                         }
                     }
-                    onSearchDone(null, searchResult);
+
+                    var onSearchDoneCallback = onSearchDone;
+                    term = null;
+                    onSearchDone = null;
+                    onSearchDoneCallback(null, searchResult);
                 },
                 null
             );
@@ -102,7 +109,9 @@
         var readyStateCheckInterval = setInterval(function() {
             if (document.readyState === "complete") {
                 clearInterval(readyStateCheckInterval);
-                loadVendorScript();
+                if (!isVendorApiLoaded()) {
+                    loadVendorApi();
+                }
             }
         }, 10);
 
