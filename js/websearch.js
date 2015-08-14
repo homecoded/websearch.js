@@ -91,7 +91,8 @@
 
                     for (var result in searchControl.results) {
                         if (searchControl.results.hasOwnProperty(result)) {
-                            searchResult.urls.push(searchControl.results[result].url);
+                            var url = searchControl.results[result].url;
+                            searchResult.urls.push(decodeURIComponent(url));
                         }
                     }
 

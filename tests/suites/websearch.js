@@ -80,6 +80,20 @@ describe('Searcher', function () {
             searcher.search('sister', onFirstRunDone);
         });
 
+        it(searcherName + ' must return non-URL-encoded URLs', function (done) {
+
+            var onFirstRunDone = function onFirstRunDone(error, result) {
+                expect(error).toBeFalsy();
+                for (var i in result.urls) {
+                    var urlReturned = result.urls[i];
+                    var urlDecoded = decodeURIComponent(result.urls[i]);
+                    expect(urlReturned).toBe(urlDecoded);
+                }
+                done();
+            };
+            searcher.search('sister', onFirstRunDone);
+        });
+
     }
 
     it('check that webSearchJs and bookSearchJs are different objects', function (done) {
