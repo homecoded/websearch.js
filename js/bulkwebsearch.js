@@ -25,8 +25,8 @@
             results = [];
             currentSearchTask = null;
             searchers = [];
-            minDelayInMilliseconds = 50;
-            maxDelayInMilliseconds = 400;
+            minDelayInMilliseconds = 300;
+            maxDelayInMilliseconds = 1200;
         }
 
         /**
@@ -38,6 +38,26 @@
             searchers.push(searcher);
         }
 
+        /**
+         * Specify a delay that should be used for waiting between calls.
+         * The delay range should be randomly applied to
+         * a) reduce stress on vendor servers
+         * b) keep the excessive-use policy filters at bay
+         *
+         * @param newMinDelayInMilliseconds
+         * @param newMaxDelayInMilliseconds
+         */
+        function setDelayRange(newMinDelayInMilliseconds, newMaxDelayInMilliseconds) {
+            minDelayInMilliseconds = newMinDelayInMilliseconds;
+            maxDelayInMilliseconds = newMaxDelayInMilliseconds;
+        }
+
+        /**
+         * Search for a list of terms
+         *
+         * @param array<string> terms
+         * @param function callback
+         */
         function search(terms, callback) {
             appendSearchTermsToQue(terms, callback);
             next();
@@ -62,7 +82,7 @@
                 for (var searcherId = 0; searcherId < searchers.length; searcherId++) {
                     var task = {
                         searcher: searchers[searcherId],
-                        term: terms[termId],
+                        term: terms[termId]
                     };
                     bucket.tasks.push(task);
                 }
@@ -116,11 +136,6 @@
 
         function isSearchInProgress() {
             return currentSearchTask !== null;
-        }
-
-        function setDelayRange(newMinDelayInMilliseconds, newMaxDelayInMilliseconds) {
-            minDelayInMilliseconds = newMinDelayInMilliseconds;
-            maxDelayInMilliseconds = newMaxDelayInMilliseconds;
         }
 
         return {
