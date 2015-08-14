@@ -23,8 +23,8 @@
         /**
          * Search for a term in the internet
          *
-         * @param term
-         * @param callback
+         * @param string searchTerm
+         * @param function callback
          */
         function search(searchTerm, callback) {
             if (typeof callback !== 'function') {

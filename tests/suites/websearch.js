@@ -1,6 +1,6 @@
 /* global describe, expect, it, webSearchJs, bookSearchJs */
 
-window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
+window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('Searcher', function () {
 
@@ -84,7 +84,7 @@ describe('Searcher', function () {
 
             var onFirstRunDone = function onFirstRunDone(error, result) {
                 expect(error).toBeFalsy();
-                for (var i in result.urls) {
+                for (var i = 0; i < result.urls.length; i++) {
                     var urlReturned = result.urls[i];
                     var urlDecoded = decodeURIComponent(result.urls[i]);
                     expect(urlReturned).toBe(urlDecoded);
