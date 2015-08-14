@@ -37,7 +37,7 @@
     function makeLinkListHtml(links) {
         var html = '';
         for (var i = 0; i < links.length; i++) {
-            html += '[<a href="' + decodeURIComponent(links[i]) + '">Link' + (i + 1) + '</a>], '
+            html += '[<a href="' + links[i] + '">Link' + (i + 1) + '</a>], '
         }
         return html;
     }
@@ -59,9 +59,10 @@
 
         bulkWebSearchJs.addSearcher(bookSearchJs);
         bulkWebSearchJs.search(['father', 'sister', 'child', 'Cthulhu'], function (error, results) {
+            bookSearchJsResults.innerHTML = '';
             for (var i = 0; i < results.length; i++) {
                 bookSearchJsResults.innerHTML += 'book search term ' + (i + 1) + ':' + results[i].term + '<br/>';
-                bookSearchJsResults.innerHTML += makeLinkListHtml(results[i].urls) + '<br/>';
+                bookSearchJsResults.innerHTML += makeLinkListHtml(results[i].urls) + '<br/><br/>';
             }
         });
     }
