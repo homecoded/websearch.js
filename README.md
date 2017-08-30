@@ -2,9 +2,11 @@
 
 # websearch.js
 
+> Warning! The deprecated Google APi is dead. This is not working anymore.
+
 A simple interface to websearch. 
 
-It uses a deprecated but still functioning Google API. 
+It uses a deprecated and **NOT** still functioning Google API. 
 The reason for using this deprecated API is the lack of proper alternatives. 
 Google's replacement, the "Custom Search API", only offers a defined subset of the web to search, 
 not the complete Google index.
